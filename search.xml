@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve之maze</title>
+      <link href="/2023/03/08/reserve%E4%B9%8Bmaze/"/>
+      <url>/2023/03/08/reserve%E4%B9%8Bmaze/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-maze-迷宫题"><a href="#攻防世界-maze-迷宫题" class="headerlink" title="攻防世界 maze 迷宫题"></a>攻防世界 maze 迷宫题</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/08/reserve%E4%B9%8Bmaze/mazepack.png"></p><p>发现无壳，且为gcc编译的文件</p><h3 id="直接扔进ida"><a href="#直接扔进ida" class="headerlink" title="直接扔进ida"></a>直接扔进ida</h3><p><img src="/2023/03/08/reserve%E4%B9%8Bmaze/key1.png"></p><p><img src="/2023/03/08/reserve%E4%B9%8Bmaze/key2.png"></p><p>分析代码发现这是一道非常典型的迷宫题，那么迷宫的按钮是什么捏，跟进四个sub函数，可以基本确定‘O’与‘o’一定为一组确定一条轴，‘.’与’0’为另一组，那么怎么确定哪个是x轴哪个是y轴捏，根本没有关系，我们直接试。令‘O’与‘o’确定x轴，可以得到‘O’：左，‘o’：右，‘.’：上，‘0’：下</p><p>得到迷宫：</p><p><img src="/2023/03/08/reserve%E4%B9%8Bmaze/flagtt.png"></p><p>输入nctf{o0oo00O000oooo..OO}发现对了，那么另一种情况就不需要试了</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>迷宫题找到数字所对应的按钮即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reverse之re-for-50-plz-50</title>
       <link href="/2023/03/08/reverse%E4%B9%8Bre-for-50-plz-50/"/>
       <url>/2023/03/08/reverse%E4%B9%8Bre-for-50-plz-50/</url>
