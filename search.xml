@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>reserve之Myterious</title>
+      <link href="/2023/03/09/reserve%E4%B9%8BMyterious/"/>
+      <url>/2023/03/09/reserve%E4%B9%8BMyterious/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-Myterious"><a href="#攻防世界-Myterious" class="headerlink" title="攻防世界 Myterious"></a>攻防世界 Myterious</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/09/reserve%E4%B9%8BMyterious/myteriouspack.png"></p><p>发现无壳</p><h3 id="扔进ida32"><a href="#扔进ida32" class="headerlink" title="扔进ida32"></a>扔进ida32</h3><p><img src="/2023/03/09/reserve%E4%B9%8BMyterious/key1.png"></p><p>分析代码，发现最后返回的是Code，那么就跟进WinMain，最后看到</p><p><img src="/2023/03/09/reserve%E4%B9%8BMyterious/key2.png"></p><p>这里可以分析出flag由6部分组成，唯一要找到的就是Sourse的值，通过跟进_itoa代码发现就是把Value的值字符串化赋给Sourse，由上面的代码得到Value&#x3D;v4+1，而v4&#x3D;122，那么Value&#x3D;123，最终得到flag{123_Buff3r_0v3rf|0w}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题的关键在于找到Sourse的值，需要对函数有准确的分析与猜测。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve之srm-50</title>
+      <link href="/2023/03/09/reserve%E4%B9%8Bsrm-50/"/>
+      <url>/2023/03/09/reserve%E4%B9%8Bsrm-50/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-srm-50"><a href="#攻防世界-srm-50" class="headerlink" title="攻防世界 srm-50"></a>攻防世界 srm-50</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/09/reserve%E4%B9%8Bsrm-50/srm50pack.png"></p><p>发现无壳</p><h3 id="扔进ida32中"><a href="#扔进ida32中" class="headerlink" title="扔进ida32中"></a>扔进ida32中</h3><p><img src="/2023/03/09/reserve%E4%B9%8Bsrm-50/key1.png"></p><p>分析代码发现最终返回的是v7，那么推断flag藏在v7中，跟进WinMain函数，接着跟进DalogFunc</p><p><img src="/2023/03/09/reserve%E4%B9%8Bsrm-50/key2.png"></p><p>发现只要if语句中的条件成立，那么就会提示成功，推断if语句中的值就是flag，仔细观察发现v11的值是乱序的，所以需要重新排序，最终得到flag  :   CZ9dmq4c8g9G7bAX</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>注意关键词提示，以及序列化问题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reverse </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之maze</title>
       <link href="/2023/03/08/reserve%E4%B9%8Bmaze/"/>
       <url>/2023/03/08/reserve%E4%B9%8Bmaze/</url>
