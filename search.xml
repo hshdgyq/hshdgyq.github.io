@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>reserve之secret-galaxy-300</title>
+      <link href="/2023/03/11/reserve%E4%B9%8Bsecret-galaxy-300/"/>
+      <url>/2023/03/11/reserve%E4%B9%8Bsecret-galaxy-300/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-secret-galaxy-300"><a href="#攻防世界-secret-galaxy-300" class="headerlink" title="攻防世界 secret-galaxy-300"></a>攻防世界 secret-galaxy-300</h1><h3 id="查壳发现无壳"><a href="#查壳发现无壳" class="headerlink" title="查壳发现无壳"></a>查壳发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/11/reserve%E4%B9%8Bsecret-galaxy-300/key1.png"></p><p>并没有看到可以输出flag的函数，继续跟踪，发现了一个可以输出字符串的函数，推测这就是flag函数</p><p><img src="/2023/03/11/reserve%E4%B9%8Bsecret-galaxy-300/key2.png"></p><p>这里可以进行脚本编写得到flag，也可以在od中直接动态调试</p><p><img src="/2023/03/11/reserve%E4%B9%8Bsecret-galaxy-300/flag.png"></p><p>把断点设在这个字符串函数的入口，即004013E0，然后防止程序直接退出，再在return处设个断点，即00401519处，直接运行，回找运行过程，发现flag</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题感觉挺难得，需要找到flag对应的函数。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve之re2-cpp-is-awesome</title>
+      <link href="/2023/03/11/reserve%E4%B9%8Bre2-cpp-is-awesome/"/>
+      <url>/2023/03/11/reserve%E4%B9%8Bre2-cpp-is-awesome/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-re2-cpp-is-awesome"><a href="#攻防世界-re2-cpp-is-awesome" class="headerlink" title="攻防世界 re2-cpp-is-awesome"></a>攻防世界 re2-cpp-is-awesome</h1><h3 id="查壳发现无壳"><a href="#查壳发现无壳" class="headerlink" title="查壳发现无壳"></a>查壳发现无壳</h3><h3 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h3><p><img src="/2023/03/11/reserve%E4%B9%8Bre2-cpp-is-awesome/key1.png"></p><p>这里发现只要v8与后面那个函数值相等就能获得提示成功，那么推断v8就是flag</p><p>追踪可得到数组下标的值</p><p><img src="/2023/03/11/reserve%E4%B9%8Bre2-cpp-is-awesome/key2.png"></p><p>shift+e把数据提取出来</p><p>跟踪off_6020A0可以得到一串字符串</p><p>L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t</p><p>可以知道flag应该就是在这串字符串里提取的，那么就开始写脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">val1=<span class="string">&quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_&#123;FL4G&#125;_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;</span></span><br><span class="line"></span><br><span class="line">val2=[<span class="number">0x24</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x05</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x36</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x65</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x27</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x26</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x2D</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x0D</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x56</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x65</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x2D</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x16</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x15</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x65</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x29</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x44</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x44</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x44</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x2B</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#注意四个数字为一组，24h和align 8 有提示</span></span><br><span class="line"></span><br><span class="line">val3=[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(val2),<span class="number">4</span>):</span><br><span class="line">    val3.append(val2[i])</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val3)):</span><br><span class="line">    flag+=val1[val3[i]]</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure><p>最终得到flag : ALEXCTF{W3_L0v3_C_W1th_CL45535}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>提取数字时一定要注意单个字符提示。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve之simple-check-100</title>
+      <link href="/2023/03/10/reserve%E4%B9%8Bsimple-check-100/"/>
+      <url>/2023/03/10/reserve%E4%B9%8Bsimple-check-100/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-simple-check-100"><a href="#攻防世界-simple-check-100" class="headerlink" title="攻防世界 simple-check-100"></a>攻防世界 simple-check-100</h1><h3 id="查壳发现无壳"><a href="#查壳发现无壳" class="headerlink" title="查壳发现无壳"></a>查壳发现无壳</h3><p><img src="/2023/03/10/reserve%E4%B9%8Bsimple-check-100/pack.png"></p><h3 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h3><p><img src="/2023/03/10/reserve%E4%B9%8Bsimple-check-100/key1.png"></p><p>这里发现只要check为真就可以得到flag，在gdb中调试</p><p>在check函数前设一个断点，单步执行进入check函数，将eax值改为1，即可得到flag</p><p><img src="/2023/03/10/reserve%E4%B9%8Bsimple-check-100/flag.png"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>理解函数作用，会用gdb调试。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> reserve </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之guess-the-number</title>
       <link href="/2023/03/09/reserve%E4%B9%8Bguess-the-number/"/>
       <url>/2023/03/09/reserve%E4%B9%8Bguess-the-number/</url>
