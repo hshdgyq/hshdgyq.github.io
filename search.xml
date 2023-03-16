@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve之流浪者</title>
+      <link href="/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/"/>
+      <url>/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-流浪者"><a href="#攻防世界-流浪者" class="headerlink" title="攻防世界 流浪者"></a>攻防世界 流浪者</h1><h3 id="首先查壳发现无壳"><a href="#首先查壳发现无壳" class="headerlink" title="首先查壳发现无壳"></a>首先查壳发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/key1.png"></p><p><img src="/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/key2.png"></p><p>跟进sub_401770函数可以发现pass，那么可以确定flag一定藏在这串字符中</p><p>分析发现v4是关键点，从第一串字符中找到第二串字符对应的下标就是v4，找到v4后发现v4并不是flag，继续找函数</p><p><img src="/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/key3.png"></p><p>刚刚找到的v4就是此时的v5，那么可以知道str就是要求的flag</p><h3 id="逆向写出脚本"><a href="#逆向写出脚本" class="headerlink" title="逆向写出脚本"></a>逆向写出脚本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">val1 = <span class="string">&quot;abcdefghiABCDEFGHIJKLMNjklmn0123456789opqrstuvwxyzOPQRSTUVWXYZ&quot;</span></span><br><span class="line"></span><br><span class="line">val2= <span class="string">&quot;KanXueCTF2019JustForhappy&quot;</span></span><br><span class="line"></span><br><span class="line">val3 = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">key = []</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val2)):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val1)):</span><br><span class="line">        <span class="keyword">if</span> val2[i]==val1[n]:</span><br><span class="line">            key.append(n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> key:</span><br><span class="line">    <span class="keyword">if</span> <span class="number">0</span>&lt;=i&lt;=<span class="number">9</span>:</span><br><span class="line">        flag+=<span class="built_in">chr</span>(i+<span class="number">48</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="number">9</span>&lt;i&lt;=<span class="number">35</span>:</span><br><span class="line">        flag+=<span class="built_in">chr</span>(i+<span class="number">87</span>)</span><br><span class="line">    <span class="keyword">if</span> i&gt;<span class="number">35</span>:</span><br><span class="line">        flag+=<span class="built_in">chr</span>(i+<span class="number">29</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure><p>flag：j0rXI4bTeustBiIGHeCF70DDM</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>此次题目在提取出key后又进行了加密，需要对加密函数有较深理解。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之hackme</title>
       <link href="/2023/03/14/reserve%E4%B9%8Bhackme/"/>
       <url>/2023/03/14/reserve%E4%B9%8Bhackme/</url>
