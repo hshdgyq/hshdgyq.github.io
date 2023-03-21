@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>reserve之BABYRE</title>
+      <link href="/2023/03/21/reserve%E4%B9%8BBABYRE/"/>
+      <url>/2023/03/21/reserve%E4%B9%8BBABYRE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-BABYRE"><a href="#攻防世界-BABYRE" class="headerlink" title="攻防世界 BABYRE"></a>攻防世界 BABYRE</h1><h3 id="首先查壳发现无壳"><a href="#首先查壳发现无壳" class="headerlink" title="首先查壳发现无壳"></a>首先查壳发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/21/reserve%E4%B9%8BBABYRE/key1.png"></p><p>发现关键在于这个判断的函数，但是这个函数被异或加密了，点不进去，那么将这个函数重新亦或回来</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> idc_bc695 <span class="keyword">import</span>*</span><br><span class="line">add=<span class="number">0x600B00</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">182</span>):</span><br><span class="line">    PatchByte(add+i,Byte(add+i)^<span class="number">0xC</span>)</span><br></pre></td></tr></table></figure><p>发现judge函数值变化了，按C再按P，最后得到了这个函数</p><p><img src="/2023/03/21/reserve%E4%B9%8BBABYRE/key2.png"></p><p>通过这个函数我们可以知道flag应该就是三段字符对自己的数位置进行亦或，那么可以编写脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">val=<span class="string">&quot;fmcd\x7Fk7d;V`;np&quot;</span></span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val)):</span><br><span class="line">  flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(val[i])^i)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#PatchByte(重定地址，对应重定结果）</span></span><br></pre></td></tr></table></figure><p>最后得到flag：flag{n1c3_j0b}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这种对函数进行操作隐藏的题还是第一次见到，主要就是将函数进行复原。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve之re4-unvm-me</title>
+      <link href="/2023/03/21/reserve%E4%B9%8Bre4-unvm-me/"/>
+      <url>/2023/03/21/reserve%E4%B9%8Bre4-unvm-me/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-re4-unvm-me"><a href="#攻防世界-re4-unvm-me" class="headerlink" title="攻防世界 re4-unvm-me"></a>攻防世界 re4-unvm-me</h1><h3 id="首先查壳发现无壳"><a href="#首先查壳发现无壳" class="headerlink" title="首先查壳发现无壳"></a>首先查壳发现无壳</h3><h3 id="发现这是python反编文件"><a href="#发现这是python反编文件" class="headerlink" title="发现这是python反编文件"></a>发现这是python反编文件</h3><p>将其进行反编，得到代码</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> md5</span><br><span class="line">md5s = [</span><br><span class="line">    <span class="number">0x831DAA3C843BA8B087C895F0ED305CE7L</span>,</span><br><span class="line">    <span class="number">0x6722F7A07246C6AF20662B855846C2C8L</span>,</span><br><span class="line">    <span class="number">0x5F04850FEC81A27AB5FC98BEFA4EB40CL</span>,</span><br><span class="line">    <span class="number">0xECF8DCAC7503E63A6A3667C5FB94F610L</span>,</span><br><span class="line">    <span class="number">0xC0FD15AE2C3931BC1E140523AE934722L</span>,</span><br><span class="line">    <span class="number">0x569F606FD6DA5D612F10CFB95C0BDE6DL</span>,</span><br><span class="line">    <span class="number">0x68CB5A1CF54C078BF0E7E89584C1A4EL</span>,</span><br><span class="line">    <span class="number">0xC11E2CD82D1F9FBD7E4D6EE9581FF3BDL</span>,</span><br><span class="line">    <span class="number">0x1DF4C637D625313720F45706A48FF20FL</span>,</span><br><span class="line">    <span class="number">0x3122EF3A001AAECDB8DD9D843C029E06L</span>,</span><br><span class="line">    <span class="number">0xADB778A0F729293E7E0B19B96A4C5A61L</span>,</span><br><span class="line">    <span class="number">0x938C747C6A051B3E163EB802A325148EL</span>,</span><br><span class="line">    <span class="number">0x38543C5E820DD9403B57BEFF6020596DL</span>]</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Can you turn me back to python ? ...&#x27;</span></span><br><span class="line">flag = raw_input(<span class="string">&#x27;well as you wish.. what is the flag: &#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(flag) &gt; <span class="number">69</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;nice try&#x27;</span></span><br><span class="line">    exit()</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(flag) % <span class="number">5</span> != <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;nice try&#x27;</span></span><br><span class="line">    exit()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(flag), <span class="number">5</span>):</span><br><span class="line">    s = flag[i:i + <span class="number">5</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">int</span>(<span class="string">&#x27;0x&#x27;</span> + md5.new(s).hexdigest(), <span class="number">16</span>) != md5s[i / <span class="number">5</span>]:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;nice try&#x27;</span></span><br><span class="line">        exit()</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Congratz now you have the flag&#x27;</span></span><br></pre></td></tr></table></figure><p>通过分析代码发现实际上就是md5s中的密文进行md5解密，但有一行少一位，在那一行前面补0即可，最后解密后得到</p><p>flag：:ALEXCTF{dv5d4s2vj8nk43s8d8l6m1n5l67ds9v41n52nv37j481h3d28n4b6v3k}</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve之tt3441810</title>
+      <link href="/2023/03/21/reserve%E4%B9%8Btt3441810/"/>
+      <url>/2023/03/21/reserve%E4%B9%8Btt3441810/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-tt3441810"><a href="#攻防世界-tt3441810" class="headerlink" title="攻防世界 tt3441810"></a>攻防世界 tt3441810</h1><h3 id="首先查壳发现无壳"><a href="#首先查壳发现无壳" class="headerlink" title="首先查壳发现无壳"></a>首先查壳发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p>啥也没有</p><h3 id="放进虚拟机"><a href="#放进虚拟机" class="headerlink" title="放进虚拟机"></a>放进虚拟机</h3><p>发现这是一个个ASCII的txt文件，查看文件</p><p><img src="/2023/03/21/reserve%E4%B9%8Btt3441810/key1.png"></p><p>发现都是16进制数，将其通过ASCII码字母的方式进行字母转换</p><p>写出脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">val=<span class="string">&quot;&quot;&quot;  68 66 6C 00 00 48 BF 01  00 00 00 00 00 00 00 48</span></span><br><span class="line"><span class="string">  8D 34 24 48 BA 02 00 00  00 00 00 00 00 48 B8 01</span></span><br><span class="line"><span class="string">  00 00 00 00 00 00 00 0F  05 68 61 67 00 00 48 BF</span></span><br><span class="line"><span class="string">  01 00 00 00 00 00 00 00  48 8D 34 24 48 BA 02 00</span></span><br><span class="line"><span class="string">  00 00 00 00 00 00 48 B8  01 00 00 00 00 00 00 00</span></span><br><span class="line"><span class="string">  0F 05 68 7B 70 00 00 48  BF 01 00 00 00 00 00 00</span></span><br><span class="line"><span class="string">  00 48 8D 34 24 48 BA 02  00 00 00 00 00 00 00 48</span></span><br><span class="line"><span class="string">  B8 01 00 00 00 00 00 00  00 0F 05 68 6F 70 00 00</span></span><br><span class="line"><span class="string">  48 BF 01 00 00 00 00 00  00 00 48 8D 34 24 48 BA</span></span><br><span class="line"><span class="string">  02 00 00 00 00 00 00 00  48 B8 01 00 00 00 00 00</span></span><br><span class="line"><span class="string">  00 00 0F 05 68 70 6F 00  00 48 BF 01 00 00 00 00</span></span><br><span class="line"><span class="string">  00 00 00 48 8D 34 24 48  BA 02 00 00 00 00 00 00</span></span><br><span class="line"><span class="string">  00 48 B8 01 00 00 00 00  00 00 00 0F 05 68 70 72</span></span><br><span class="line"><span class="string">  00 00 48 BF 01 00 00 00  00 00 00 00 48 8D 34 24</span></span><br><span class="line"><span class="string">  48 BA 02 00 00 00 00 00  00 00 48 B8 01 00 00 00</span></span><br><span class="line"><span class="string">  00 00 00 00 0F 05 68 65  74 00 00 48 BF 01 00 00</span></span><br><span class="line"><span class="string">  00 00 00 00 00 48 8D 34  24 48 BA 02 00 00 00 00</span></span><br><span class="line"><span class="string">  00 00 00 48 B8 01 00 00  00 00 00 00 00 0F 05 68</span></span><br><span class="line"><span class="string">  7D 0A 00 00 48 BF 01 00  00 00 00 00 00 00 48 8D</span></span><br><span class="line"><span class="string">  34 24 48 BA 02 00 00 00  00 00 00 00 48 B8 01 00</span></span><br><span class="line"><span class="string">  00 00 00 00 00 00 0F 05  48 31 FF 48 B8 3C 00 00</span></span><br><span class="line"><span class="string">  00 00 00 00 00 0F 05  &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line">flag1=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> val.replace(<span class="string">&quot;\n&quot;</span>,<span class="string">&quot;&quot;</span>).split(<span class="string">&quot; &quot;</span>):</span><br><span class="line">    key=key.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> key:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">97</span>&lt;=<span class="built_in">int</span>(key,<span class="number">16</span>)&lt;=<span class="number">127</span> <span class="keyword">or</span> <span class="number">65</span>&lt;=<span class="built_in">int</span>(key,<span class="number">16</span>)&lt;=<span class="number">90</span>:</span><br><span class="line">        flag+=<span class="built_in">chr</span>(<span class="built_in">int</span>(key,<span class="number">16</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> flag:</span><br><span class="line">    <span class="keyword">if</span> i!=<span class="string">&#x27;H&#x27;</span> <span class="keyword">and</span> i!=<span class="string">&#x27;h&#x27;</span>:</span><br><span class="line">        flag1+=i;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="built_in">print</span>(flag1)</span><br></pre></td></tr></table></figure><p>最后得到flag：flag{poppopret}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在编码时注意这是16进制数，注意字母取值范围。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之流浪者</title>
       <link href="/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/"/>
       <url>/2023/03/16/reserve%E4%B9%8B%E6%B5%81%E6%B5%AA%E8%80%85/</url>
