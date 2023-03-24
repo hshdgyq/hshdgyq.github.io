@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve之crackme</title>
+      <link href="/2023/03/24/reserve%E4%B9%8Bcrackme/"/>
+      <url>/2023/03/24/reserve%E4%B9%8Bcrackme/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-crackme"><a href="#攻防世界-crackme" class="headerlink" title="攻防世界 crackme"></a>攻防世界 crackme</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/24/reserve%E4%B9%8Bcrackme/key1.png"></p><p>发现是北斗壳</p><h3 id="扔进万能脱壳工具进行脱壳"><a href="#扔进万能脱壳工具进行脱壳" class="headerlink" title="扔进万能脱壳工具进行脱壳"></a>扔进万能脱壳工具进行脱壳</h3><p>脱壳完毕后文件打不开了，把没脱壳的文件扔进imporREC，先后点击自动搜索，获取输入表，然后修复转入文件，选择脱壳后的文件，这样就会生成一个脱壳后完好的文件</p><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/24/reserve%E4%B9%8Bcrackme/%E5%8F%AF%E4%BB%A5.png"></p><p>发现flag就是Buffer，跟着下面操作写脚本即可，但要注意的是</p><p><img src="/2023/03/24/reserve%E4%B9%8Bcrackme/key3.png"></p><p>byte_402130的值除了’his_is_no_flag’还有一个0x74在前面</p><h3 id="写出脚本"><a href="#写出脚本" class="headerlink" title="写出脚本"></a>写出脚本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">val3=[]</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(val1),<span class="number">4</span>):</span><br><span class="line">    val3.append(val1[i])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val3)):</span><br><span class="line">    flag+=<span class="built_in">chr</span>(val3[i]^<span class="built_in">ord</span>(val2[i%<span class="number">16</span>]))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="built_in">print</span>(val3)</span><br></pre></td></tr></table></figure><p>得到flag：flag{59b8ed8f-af22-11e7-bb4a-3cf862d1ee75}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>适当运用脱壳工具，注意字符串完整性。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> xctf </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tomorrow</title>
       <link href="/2023/03/22/tomorrow/"/>
       <url>/2023/03/22/tomorrow/</url>
