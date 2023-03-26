@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>reserve之debug</title>
+      <link href="/2023/03/26/reserve%E4%B9%8Bdebug/"/>
+      <url>/2023/03/26/reserve%E4%B9%8Bdebug/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-debug"><a href="#攻防世界-debug" class="headerlink" title="攻防世界 debug"></a>攻防世界 debug</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/26/reserve%E4%B9%8Bdebug/pack.png"></p><p>发现无壳，并且是.NET文件，此时ida就失效了</p><h3 id="用dbSpy打开"><a href="#用dbSpy打开" class="headerlink" title="用dbSpy打开"></a>用dbSpy打开</h3><p>点击启动并将断点设置在入口点，发现了“u got it”的字样，那么就在这里的条件语句处设置断点，进行动态调试</p><p><img src="/2023/03/26/reserve%E4%B9%8Bdebug/flag.png"></p><p>随便输入一个值直接得到flag，flag{967DDDFBCD32C1F53527C221D9E40A0B}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>又是一种新工具的使用。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>用梯形法求函数积分</title>
+      <link href="/2023/03/26/%E7%94%A8%E6%A2%AF%E5%BD%A2%E6%B3%95%E6%B1%82%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86/"/>
+      <url>/2023/03/26/%E7%94%A8%E6%A2%AF%E5%BD%A2%E6%B3%95%E6%B1%82%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="梯形法求函数积分"><a href="#梯形法求函数积分" class="headerlink" title="梯形法求函数积分"></a>梯形法求函数积分</h1><p>题目：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">按如下函数原型，采用梯形法编程实现(分成100个小梯形,再求这100个梯形面积的和)，在积分区间[a,b]内计算函数y1=∫(1+x*x)dx (从0积到1）和y2=∫x/(1+x*x)dx (从0积到3）的定积分。其中，指向函数的指针变量f用于接收被积函数的入口地址。</span><br><span class="line"></span><br><span class="line">Integral(float (*f)(float), float a, float b);</span><br><span class="line"></span><br><span class="line">**输出格式要求：&quot;y1=%f\ny2=%f\n&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//将两个积分函数运算写出</span></span><br><span class="line"><span class="type">float</span> <span class="title function_">func1</span><span class="params">(<span class="type">float</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>+x*x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> <span class="title function_">func2</span><span class="params">(<span class="type">float</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x/(<span class="number">1</span>+x*x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运用梯形法求积分</span></span><br><span class="line"><span class="type">float</span> <span class="title function_">Integral</span><span class="params">(<span class="type">float</span> (*f)(<span class="type">float</span>), <span class="type">float</span> a, <span class="type">float</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> sum=<span class="number">0</span>,h;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    h=(a+b)/<span class="number">100</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum+=(f(a+i*h)+f(a+(i+<span class="number">1</span>)*h))*h/<span class="number">2</span>;<span class="comment">//上底加下底乘以高除以2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> y1,y2;</span><br><span class="line">    y1=Integral(func1,<span class="number">0.0</span>,<span class="number">1.0</span>);</span><br><span class="line">    y2=Integral(func2,<span class="number">0.0</span>,<span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;y1=%f\ny2=%f\n&quot;</span>,y1,y2);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之crackme</title>
       <link href="/2023/03/24/reserve%E4%B9%8Bcrackme/"/>
       <url>/2023/03/24/reserve%E4%B9%8Bcrackme/</url>
@@ -13,7 +63,7 @@
       
       <categories>
           
-          <category> xctf </category>
+          <category> reserve </category>
           
       </categories>
       
