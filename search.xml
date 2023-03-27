@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve之EASYHOOK</title>
+      <link href="/2023/03/27/reserve%E4%B9%8BEASYHOOK/"/>
+      <url>/2023/03/27/reserve%E4%B9%8BEASYHOOK/</url>
+      
+        <content type="html"><![CDATA[<h1 id="攻防世界-EASYHOOK"><a href="#攻防世界-EASYHOOK" class="headerlink" title="攻防世界 EASYHOOK"></a>攻防世界 EASYHOOK</h1><h3 id="首先查壳发现无壳"><a href="#首先查壳发现无壳" class="headerlink" title="首先查壳发现无壳"></a>首先查壳发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/27/reserve%E4%B9%8BEASYHOOK/key1.png"></p><p>没找到真正的加密函数，只是看到了一堆系统函数，最后在sub_401000发现了真正的加密函数</p><p><img src="/2023/03/27/reserve%E4%B9%8BEASYHOOK/key2.png"></p><p>将字符串提取后进行上面操作的逆向操作，最后得到的a1就是flag，编写脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val=[<span class="number">0x61</span>, <span class="number">0x6A</span>, <span class="number">0x79</span>, <span class="number">0x67</span>, <span class="number">0x6B</span>, <span class="number">0x46</span>, <span class="number">0x6D</span>, <span class="number">0x2E</span>, <span class="number">0x7F</span>, <span class="number">0x5F</span>,</span><br><span class="line">  <span class="number">0x7E</span>, <span class="number">0x2D</span>, <span class="number">0x53</span>, <span class="number">0x56</span>, <span class="number">0x7B</span>, <span class="number">0x38</span>, <span class="number">0x6D</span>, <span class="number">0x4C</span>, <span class="number">0x6E</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val[<span class="number">18</span>]=val[<span class="number">18</span>]^<span class="number">0x13</span></span><br><span class="line">flag=<span class="built_in">list</span>(<span class="string">&quot;-------------------&quot;</span>)<span class="comment">#因为后面需要直接对第19号元素赋值，所有这里可以假定一个初值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">18</span>):</span><br><span class="line">  v3=val[i]^i</span><br><span class="line">  <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">1</span>:</span><br><span class="line">    flag[i]=<span class="built_in">chr</span>(v3+i)<span class="comment">#不能用val[i]来代替flag[i]，如果代替后，在运算的同时val的值在改变，而val是参与基本运算的，替代后得不到最后的flag</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    flag[i+<span class="number">2</span>]=<span class="built_in">chr</span>(v3)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">19</span>):</span><br><span class="line">  <span class="built_in">print</span>(flag[i],end=<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure><p>最后发现逆出来的flag：-lag{Ho0k_w1th_Fun} 这里的flag并不是对的，我们发现一号元素并没有运算，但我们通过固定格式可以得到</p><p>flag{Ho0k_w1th_Fun} </p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于hook题型，一般需要正确找到加密函数，找到后一般逻辑很简单，难点在于找到函数。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> xctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之reserveMe-120</title>
       <link href="/2023/03/27/reserve%E4%B9%8BreserveMe-120/"/>
       <url>/2023/03/27/reserve%E4%B9%8BreserveMe-120/</url>
