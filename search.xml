@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>顺序淘汰问题</title>
+      <link href="/2023/03/30/%E9%A1%BA%E5%BA%8F%E6%B7%98%E6%B1%B0%E9%97%AE%E9%A2%98/"/>
+      <url>/2023/03/30/%E9%A1%BA%E5%BA%8F%E6%B7%98%E6%B1%B0%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="顺序淘汰问题"><a href="#顺序淘汰问题" class="headerlink" title="顺序淘汰问题"></a>顺序淘汰问题</h1><p>问题：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">13个人围成一圈，从第1个人开始顺序报号1、2、3，凡报到3的人退出圈子。找出最后留在圈子里的人原来的序号。要求用结构体编程实现。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">***输出提示：&quot;\n出圈成员及顺序：&quot;</span><br><span class="line">***输出格式：&quot;%3d&quot;</span><br><span class="line">***输出提示：&quot;\n最后的成员是：&quot;</span><br><span class="line">***输出格式：&quot;%3d&quot;</span><br></pre></td></tr></table></figure><p>代码：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">    </span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *head,*p,*q;<span class="comment">//设置指针，用来索引链表</span></span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    head=<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    head-&gt;num=<span class="number">1</span>;</span><br><span class="line">    p=head;</span><br><span class="line">    <span class="comment">//初始化链表</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=<span class="number">13</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        q=<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">        p-&gt;next=q;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        p-&gt;num=i;</span><br><span class="line">    &#125;</span><br><span class="line">    p-&gt;next=head;<span class="comment">//将链表连成环</span></span><br><span class="line">    p=head;<span class="comment">//将索引指针指向链表头</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n出圈成员及顺序：&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">12</span>;i++)<span class="comment">//进行12次循环，淘汰12名选手</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;<span class="number">3</span>;j++)<span class="comment">//从第一个开始，连续跳两次相当于就数到了三</span></span><br><span class="line">        &#123;</span><br><span class="line">            q=p;</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%3d&quot;</span>,p-&gt;num);</span><br><span class="line">        q-&gt;next=p-&gt;next;<span class="comment">//将报三的数前后连接，使链表跳过三</span></span><br><span class="line">        <span class="built_in">free</span>(p);<span class="comment">//将数到三的成员free掉</span></span><br><span class="line">        p=q-&gt;next;<span class="comment">//重新指向下一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n最后的成员是：&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%3d&quot;</span>,p-&gt;num);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>链表的基本运用。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C语言实例 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.新年快乐</title>
+      <link href="/2023/03/30/reserve-%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90/"/>
+      <url>/2023/03/30/reserve-%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-新年快乐"><a href="#buuctf-新年快乐" class="headerlink" title="buuctf 新年快乐"></a>buuctf 新年快乐</h1><h3 id="首先查壳"><a href="#首先查壳" class="headerlink" title="首先查壳"></a>首先查壳</h3><p><img src="/2023/03/30/reserve-%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90/key2.png"></p><p>发现有UPX壳</p><p>直接扔进虚拟机</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upx -d 文件名</span><br></pre></td></tr></table></figure><p>将文件的壳脱去，直接扔回主机</p><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/30/reserve-%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90/key1.png"></p><p>直接就看到了flag：flag{HappyNewYear!}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>直接脱壳找flag，签到题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.reserve2</title>
+      <link href="/2023/03/30/reserve-reserve2/"/>
+      <url>/2023/03/30/reserve-reserve2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-reserve2"><a href="#buuctf-reserve2" class="headerlink" title="buuctf reserve2"></a>buuctf reserve2</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/30/reserve-reserve2/key2.png"></p><p>这里发现flag直接跟进，但要小心当flag字符为’i’或’r’时，应该换为’1’</p><p><img src="/2023/03/30/reserve-reserve2/key1.png"></p><p>拿到flag数据直接将其用字符形式逆出</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">val=[<span class="number">0x7B</span>, <span class="number">0x68</span>, <span class="number">0x61</span>, <span class="number">0x63</span>, <span class="number">0x6B</span>, <span class="number">0x69</span>, <span class="number">0x6E</span>, <span class="number">0x67</span>, <span class="number">0x5F</span>, <span class="number">0x66</span>,</span><br><span class="line">  <span class="number">0x6F</span>, <span class="number">0x72</span>, <span class="number">0x5F</span>, <span class="number">0x66</span>, <span class="number">0x75</span>, <span class="number">0x6E</span>, <span class="number">0x7D</span>]</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val)):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">chr</span>(val[i])==<span class="string">&#x27;i&#x27;</span> <span class="keyword">or</span> <span class="built_in">chr</span>(val[i])==<span class="string">&#x27;r&#x27;</span>:</span><br><span class="line">        flag+=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        flag+=<span class="built_in">chr</span>(val[i])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;flag&quot;</span>+flag)</span><br></pre></td></tr></table></figure><p>最后得到flag：flag{hack1ng_fo1_fun}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>直接得到flag，没有技巧，签到题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve之EASYHOOK</title>
       <link href="/2023/03/27/reserve%E4%B9%8BEASYHOOK/"/>
       <url>/2023/03/27/reserve%E4%B9%8BEASYHOOK/</url>
