@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>reserve.reserve3</title>
+      <link href="/2023/03/31/reserve-reserve3/"/>
+      <url>/2023/03/31/reserve-reserve3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-reserve3"><a href="#buuctf-reserve3" class="headerlink" title="buuctf reserve3"></a>buuctf reserve3</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/31/reserve-reserve3/key1.png"></p><p>这里可以通过提示的Str2把Destination逆出来</p><p><img src="/2023/03/31/reserve-reserve3/key2.png"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val=[<span class="number">0x65</span>, <span class="number">0x33</span>, <span class="number">0x6E</span>, <span class="number">0x69</span>, <span class="number">0x66</span>, <span class="number">0x49</span>, <span class="number">0x48</span>, <span class="number">0x39</span>, <span class="number">0x62</span>, <span class="number">0x5F</span>,</span><br><span class="line">  <span class="number">0x43</span>, <span class="number">0x40</span>, <span class="number">0x6E</span>, <span class="number">0x40</span>, <span class="number">0x64</span>, <span class="number">0x48</span>]</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(val)):</span><br><span class="line">    val[i]-=i</span><br><span class="line">    flag+=<span class="built_in">chr</span>(val[i])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure><p>最后得到e2lfbDB2ZV95b3V9，但这并不是flag，因为前面还有一个加密函数，我也没弄懂这是什么加密，在大牛博客下知道了这是base64加密，那么我们就只需要把字符通过base64解密即可，得到flag：flag{i_l0ve_you}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于这些加密方式代码还是不熟悉，在不知道加密方式时，可以带入常用的几种加密中。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.helloworld</title>
+      <link href="/2023/03/31/reserve-helloworld/"/>
+      <url>/2023/03/31/reserve-helloworld/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-helloworld"><a href="#buuctf-helloworld" class="headerlink" title="buuctf helloworld"></a>buuctf helloworld</h1><h3 id="这是apk文件，扔进jadx-gui"><a href="#这是apk文件，扔进jadx-gui" class="headerlink" title="这是apk文件，扔进jadx-gui"></a>这是apk文件，扔进jadx-gui</h3><p><img src="/2023/03/31/reserve-helloworld/key1.png"></p><p>找到main函数后，就直接给了flag：flag{7631a988259a00816deda84afb29430a}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>安卓逆向题还是第一次遇到，这也算个签到题吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.xor</title>
+      <link href="/2023/03/31/reserve-xor/"/>
+      <url>/2023/03/31/reserve-xor/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-xor"><a href="#buuctf-xor" class="headerlink" title="buuctf xor"></a>buuctf xor</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/03/31/reserve-xor/QQ%E6%88%AA%E5%9B%BE20230331221744.png"></p><p>发现只需要将提示字符串每个字符与上一个字符做亦或运算即可逆出flag</p><p>跟进global得到提示字符串</p><p><img src="/2023/03/31/reserve-xor/key2.png"></p><p>逆出脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">val=[<span class="number">0x66</span>, <span class="number">0x0A</span>, <span class="number">0x6B</span>, <span class="number">0x0C</span>, <span class="number">0x77</span>, <span class="number">0x26</span>, <span class="number">0x4F</span>, <span class="number">0x2E</span>, <span class="number">0x40</span>, <span class="number">0x11</span>,</span><br><span class="line">  <span class="number">0x78</span>, <span class="number">0x0D</span>, <span class="number">0x5A</span>, <span class="number">0x3B</span>, <span class="number">0x55</span>, <span class="number">0x11</span>, <span class="number">0x70</span>, <span class="number">0x19</span>, <span class="number">0x46</span>, <span class="number">0x1F</span>,</span><br><span class="line">  <span class="number">0x76</span>, <span class="number">0x22</span>, <span class="number">0x4D</span>, <span class="number">0x23</span>, <span class="number">0x44</span>, <span class="number">0x0E</span>, <span class="number">0x67</span>, <span class="number">0x06</span>, <span class="number">0x68</span>, <span class="number">0x0F</span>,</span><br><span class="line">  <span class="number">0x47</span>, <span class="number">0x32</span>, <span class="number">0x4F</span>]</span><br><span class="line"></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(val)):</span><br><span class="line">    flag+=<span class="built_in">chr</span>(val[i]^val[i-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">chr</span>(val[<span class="number">0</span>])+flag)</span><br></pre></td></tr></table></figure><p>最后flag：flag{QianQiuWanDai_YiTongJiangHu}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单的亦或操作。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>顺序淘汰问题</title>
       <link href="/2023/03/30/%E9%A1%BA%E5%BA%8F%E6%B7%98%E6%B1%B0%E9%97%AE%E9%A2%98/"/>
       <url>/2023/03/30/%E9%A1%BA%E5%BA%8F%E6%B7%98%E6%B1%B0%E9%97%AE%E9%A2%98/</url>
