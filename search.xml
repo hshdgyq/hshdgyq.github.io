@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>reserve.SimpleRev</title>
+      <link href="/2023/04/01/reserve-SimpleRev/"/>
+      <url>/2023/04/01/reserve-SimpleRev/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-SimpleRev"><a href="#buuctf-SimpleRev" class="headerlink" title="buuctf SimpleRev"></a>buuctf SimpleRev</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/04/01/reserve-SimpleRev/key1.png"></p><p>发现v1就是flag，但要在key与text两个字符串作用下得到，两个字符串都是由两部分组成，这里需要注意，第一部分是直接在内存中查看的所以就是原字符串，第二部分直接写在代码中，由于在32位机器中是小端储存，所以储存的第二部分字符串应是颠倒的，即：key:ADSFKNDCLS   text:killshadow</p><p><img src="/2023/04/01/reserve-SimpleRev/key2.png"></p><p>接下来就是在所以字母中寻找满足运算的字母，那么就可以直接暴力破解，找出每第一个满足的字母</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">key=<span class="string">&quot;ADSFKNDCLS&quot;</span></span><br><span class="line">str2=<span class="string">&quot;killshadow&quot;</span></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line">val=<span class="string">&quot;&quot;</span></span><br><span class="line">v3=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(key)): <span class="comment">#将key转化为小写</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(key[v3 % <span class="built_in">len</span>(key)]) &gt; <span class="number">64</span> <span class="keyword">and</span> <span class="built_in">ord</span>(key[v3 % <span class="built_in">len</span>(key)]) &lt;= <span class="number">90</span>:</span><br><span class="line">        val+= <span class="built_in">chr</span>(<span class="built_in">ord</span>(key[v3 % <span class="built_in">len</span>(key)]) + <span class="number">32</span>)</span><br><span class="line">        v3=v3+<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(val)</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(str2)):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">65</span>,<span class="number">123</span>): <span class="comment">#暴力破解，找到每次第一个满足flag的字符，从A找到z</span></span><br><span class="line">        <span class="keyword">if</span> str2[j]==<span class="built_in">chr</span>((i-<span class="number">39</span>-<span class="built_in">ord</span>(val[j])+<span class="number">97</span>)%<span class="number">26</span>+<span class="number">97</span>):</span><br><span class="line">            flag+=<span class="built_in">chr</span>(i)</span><br><span class="line">            <span class="keyword">break</span> <span class="comment">#找到一个就开始新循环</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;flag&#123;&quot;</span>+flag+<span class="string">&quot;&#125;&quot;</span>)</span><br></pre></td></tr></table></figure><p>得到flag：flag{KLDQCUDFZO}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>注意32位机器的小端储存，其实际储存是颠倒的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.不一样的flag</title>
+      <link href="/2023/04/01/reserve-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag/"/>
+      <url>/2023/04/01/reserve-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-不一样的flag"><a href="#buuctf-不一样的flag" class="headerlink" title="buuctf 不一样的flag"></a>buuctf 不一样的flag</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/04/01/reserve-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag/%E5%8F%AF%E4%BB%A5.png"></p><p>打开主函数一看，发现这是一道非常常规的迷宫题，那么就只需要走出迷宫即可，开始的字符串就是迷宫，*是迷宫起点，#是迷宫终点</p><p><img src="/2023/04/01/reserve-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag/flag.png"></p><p>最后得到flag：flag{222441144222}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>典型迷宫题，跟着提示步骤前进即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve.reserve3</title>
       <link href="/2023/03/31/reserve-reserve3/"/>
       <url>/2023/03/31/reserve-reserve3/</url>
