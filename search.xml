@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>reserve.刮开有奖</title>
+      <link href="/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/"/>
+      <url>/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-刮开有奖"><a href="#buuctf-刮开有奖" class="headerlink" title="buuctf 刮开有奖"></a>buuctf 刮开有奖</h1><h3 id="首先查壳，发现无壳"><a href="#首先查壳，发现无壳" class="headerlink" title="首先查壳，发现无壳"></a>首先查壳，发现无壳</h3><h3 id="扔进ida"><a href="#扔进ida" class="headerlink" title="扔进ida"></a>扔进ida</h3><p><img src="/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/key1.png"></p><p>首先看到的是v7，v7长度为8，但这里有10个字符，那说明v7是进行了某种运算，但是10个字符中就前两个有v7的标识，那后面的字符和v7有什么关系呢，想不通，看了大佬的wp，大佬说这里实际上就是相当于一个v7的数组，后面的v8到v16都是依次加上了四个字节得到的，v7[0]相当于就是索引头，点进sub_4010F0函数，这里函数的运算可以直接用伪代码写出来，但是注意，由于源代码中传入的v7是int类型的，而写的伪代码传入的v7是char类型的，所以应该把源代码中的result乘以4和i乘以4分别改为result和i,伪代码如下</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sub_4010F0</span><span class="params">(<span class="type">char</span> *a1, <span class="type">int</span> a2, <span class="type">int</span> a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> i; <span class="comment">// esi</span></span><br><span class="line">  <span class="type">int</span> v5; <span class="comment">// ecx</span></span><br><span class="line">  <span class="type">int</span> v6; <span class="comment">// edx</span></span><br><span class="line"></span><br><span class="line">  result = a3;</span><br><span class="line">  <span class="keyword">for</span> ( i = a2; i &lt;= a3; a2 = i )</span><br><span class="line">  &#123;</span><br><span class="line">    v5 = i;</span><br><span class="line">    v6 = a1[i];</span><br><span class="line">    <span class="keyword">if</span> ( a2 &lt; result &amp;&amp; i &lt; result )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v6 &gt; a1[result])</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( i &gt;= result )</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          ++i;</span><br><span class="line">          a1[v5]= a1[result];</span><br><span class="line">          <span class="keyword">if</span> ( i &gt;= result )</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">while</span> (a1[i]&lt;= v6 )</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="keyword">if</span> ( ++i &gt;= result )</span><br><span class="line">              <span class="keyword">goto</span> LABEL_13;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> ( i &gt;= result )</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          v5 = i;</span><br><span class="line">          a1[result] = a1[i];</span><br><span class="line">        &#125;</span><br><span class="line">        --result;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span> ( i &lt; result );</span><br><span class="line">    &#125;</span><br><span class="line">LABEL_13:</span><br><span class="line">    a1[result] = v6;</span><br><span class="line">    sub_4010F0(a1, a2, i - <span class="number">1</span>);</span><br><span class="line">    result = a3;</span><br><span class="line">    ++i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a[]=<span class="string">&quot;ZJSECaNH3ng&quot;</span>;</span><br><span class="line">    sub_4010F0(a,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>得到加密后字符串：3CEHJNSZagn</p><p>接下来，根据提示，需要将string的576位和324位分别放进sub_401000中进行加密</p><p><img src="/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/key2.png"></p><p>发现这个函数里既进行了位运算又进行了与运算，所以推测这是一个base64加密，毕竟base64加密很常用</p><p>分别将ak1w和V1Ax进行base64加密，得到jMP和WP1，现在只需要确定前两位就行了，通过if语句得知，前两位就是加密函数得到字符进行运算，直接写出脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val1=<span class="string">&quot;WP1&quot;</span></span><br><span class="line">val2=<span class="string">&quot;jMp&quot;</span></span><br><span class="line">v7=<span class="string">&quot;3CEHJNSZagn&quot;</span></span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line">flag=<span class="built_in">chr</span>(<span class="built_in">ord</span>(v7[<span class="number">0</span>])+<span class="number">34</span>)+v7[<span class="number">4</span>]+val1+val2</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure><p>最后得到flag：flag{UJWP1jMp}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>两个加密函数分别对不同部位加密，要注意传入的参数类型。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reserve.JustRE</title>
+      <link href="/2023/04/04/reserve-JustRE/"/>
+      <url>/2023/04/04/reserve-JustRE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-BJDCTF2022-JustRE"><a href="#buuctf-BJDCTF2022-JustRE" class="headerlink" title="buuctf [BJDCTF2022]JustRE"></a>buuctf [BJDCTF2022]JustRE</h1><h3 id="首先查壳，无壳"><a href="#首先查壳，无壳" class="headerlink" title="首先查壳，无壳"></a>首先查壳，无壳</h3><h3 id="方法1：扔进ida"><a href="#方法1：扔进ida" class="headerlink" title="方法1：扔进ida"></a>方法1：扔进ida</h3><p><img src="/2023/04/04/reserve-JustRE/key4.png"></p><p>找到有flag的函数后直接给了flag</p><h3 id="方法2：OD动态调试"><a href="#方法2：OD动态调试" class="headerlink" title="方法2：OD动态调试"></a>方法2：OD动态调试</h3><p><img src="/2023/04/04/reserve-JustRE/key1.png"></p><p>找到有flag关键字符的代码，代码意思就是在地址0x40137A处得到点击次数，在地址0x401385处回显提示点击次数，在地址0x401398处会将次数与0x4E1F相比较，如果相等，则进入函数输出flag，所以只需要在地址0x40137A处将次数修改即可，但要注意，在0x401390处次数会加一，所以我们修改的次数应该是0x4E1F-1，即：0x4E1E</p><p><img src="/2023/04/04/reserve-JustRE/key2.png"></p><p>最后运行程序得到flag</p><p><img src="/2023/04/04/reserve-JustRE/key3.png"></p><p>但在buuctf上的flag为：flag{1999902069a45792d233ac}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>按键次数爆破类题型，找到关键的寄存器eax的值，修改正确即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve.lunck_guy</title>
       <link href="/2023/04/03/reserve-lunck-guy/"/>
       <url>/2023/04/03/reserve-lunck-guy/</url>
