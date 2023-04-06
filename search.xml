@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve.pyre</title>
+      <link href="/2023/04/06/reserve-pyre/"/>
+      <url>/2023/04/06/reserve-pyre/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-pyre"><a href="#buuctf-pyre" class="headerlink" title="buuctf pyre"></a>buuctf pyre</h1><h3 id="先反编译"><a href="#先反编译" class="headerlink" title="先反编译"></a>先反编译</h3><p>我先在网站上反编译，反编译出来是这样的</p><p><img src="/2023/04/06/reserve-pyre/key1.png"></p><p>发现写脚本时直接提示是三个字符无法进行亦或操作，看了其他人的wp，发现根本不是这一串字符，网站上的反编译有错，那么可以直接在本地编译，用uncompyle6直接反编译，用法如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6 xxx.pyc &gt; xxx.py</span><br></pre></td></tr></table></figure><p>得到正确的反编译代码</p><p><img src="/2023/04/06/reserve-pyre/key2.png"></p><p>这里code的所有元素中最后两位是没有进行亦或操作的，前面的元素都是与后面的相邻元素进行亦或操作，那要怎么逆呢？先看个例子</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code=[A,B,C,D,E,F]</span><br><span class="line">#进行操作</span><br><span class="line">code=[A^B,B^C,C^D,D^E,E,F]</span><br><span class="line">#要想重新逆回来，只能从D^E开始，依次与下一位做亦或运算</span><br><span class="line">code=[A^B^B,B^C^C,C^D^D,D^E^E,E,F]</span><br></pre></td></tr></table></figure><p>亦或解决后再看前面的取余运算，取余运算中有：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(a+b)%c=a%c+b%c</span><br><span class="line">如果d=(a+b)%c</span><br><span class="line">那么b=(d-a)%c</span><br></pre></td></tr></table></figure><p>这样我们就可以直接得到脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">code = [<span class="string">&#x27;\x1f&#x27;</span>, <span class="string">&#x27;\x12&#x27;</span>, <span class="string">&#x27;\x1d&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;\x01&#x27;</span>, <span class="string">&#x27;\x06&#x27;</span>, <span class="string">&#x27;\x14&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;,&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;\x1b&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;\x01&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;\x13&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(code)-<span class="number">2</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    code[i]=<span class="built_in">chr</span>(<span class="built_in">ord</span>(code[i])^<span class="built_in">ord</span>(code[i+<span class="number">1</span>]))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(code)):</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>((<span class="built_in">ord</span>(code[i])-i)%<span class="number">128</span>),end=<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure><p>最后得到flag：GWHT{Just_Re_1s_Ha66y!}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题中我对于异或运算和取余运算收获很大：</p><p>亦或运算不在赘诉，取余运算中，补充乘法情况：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果a*b%c=d</span></span><br><span class="line"><span class="comment">#那么在已知a为整数的情况下，要求出a，可以直接判断d/b是否为整数，如果不为整数，进行d+c，直到为整数为止，那么这个整数就是a</span></span><br><span class="line"><span class="keyword">while</span> d%b!=<span class="number">0</span>:</span><br><span class="line">    d+=c</span><br><span class="line">a=d/b</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve.简单注册器</title>
       <link href="/2023/04/06/reserve-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E5%99%A8/"/>
       <url>/2023/04/06/reserve-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E5%99%A8/</url>
