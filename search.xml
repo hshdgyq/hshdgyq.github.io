@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>reserve.简单注册器</title>
+      <link href="/2023/04/06/reserve-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E5%99%A8/"/>
+      <url>/2023/04/06/reserve-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="buuctf-简单注册器"><a href="#buuctf-简单注册器" class="headerlink" title="buuctf 简单注册器"></a>buuctf 简单注册器</h1><h3 id="apk文件，直接扔进jadx-gui"><a href="#apk文件，直接扔进jadx-gui" class="headerlink" title="apk文件，直接扔进jadx-gui"></a>apk文件，直接扔进jadx-gui</h3><p><img src="/2023/04/06/reserve-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E5%99%A8/key1.png"></p><p>打开main函数，直接就找到了有关flag的运算，跟着逻辑步骤直接写出脚本</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> x[<span class="number">40</span>]=<span class="string">&quot;dd2940c04462b4dd7c450528835cca15&quot;</span>;</span><br><span class="line">    x[<span class="number">2</span>] = (<span class="type">char</span>) ((x[<span class="number">2</span>] + x[<span class="number">3</span>]) - <span class="number">50</span>);</span><br><span class="line">    x[<span class="number">4</span>] = (<span class="type">char</span>) ((x[<span class="number">2</span>] + x[<span class="number">5</span>]) - <span class="number">48</span>);</span><br><span class="line">    x[<span class="number">30</span>] = (<span class="type">char</span>) ((x[<span class="number">31</span>] + x[<span class="number">9</span>]) - <span class="number">48</span>);</span><br><span class="line">    x[<span class="number">14</span>] = (<span class="type">char</span>) ((x[<span class="number">27</span>] + x[<span class="number">28</span>]) - <span class="number">97</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++) &#123;<span class="comment">//倒序</span></span><br><span class="line">        <span class="type">char</span> a = x[<span class="number">31</span> - i];</span><br><span class="line">        x[<span class="number">31</span> - i] = x[i];</span><br><span class="line">        x[i] = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后得到flag：flag{59acc538825054c7de4b26440c0999dd}</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单的安卓逆向题目，注意运算就行。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> reserve </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> buuctf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>reserve.刮开有奖</title>
       <link href="/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/"/>
       <url>/2023/04/05/reserve-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96/</url>
